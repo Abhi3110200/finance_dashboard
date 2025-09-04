@@ -4,9 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Download } from "lucide-react"
 import { useRef, useState } from "react"
 import { toast } from "sonner"
-import html2canvas from "html2canvas"
 import { jsPDF } from "jspdf"
-
 interface DownloadReportButtonProps {
     targetId: string
     fileName?: string
@@ -70,14 +68,14 @@ export function DownloadReportButton({ targetId, fileName = "report.pdf" }: Down
                             el.style.backgroundColor = '#ffffff'
                             break
                         case 'fill':
-                            (el.style as any).fill = '#1a1a1a'
+                            (el.style as unknown as { fill: string }).fill = '#1a1a1a'
                             break
                         case 'stroke':
-                            (el.style as any).stroke = '#e5e7eb'
+                            (el.style as unknown as { stroke: string }).stroke = '#e5e7eb'
                             break
                         default:
                             if (prop.includes('border') || prop.includes('outline')) {
-                                (el.style as any)[prop] = '#e5e7eb'
+                                (el.style as unknown as Record<string, string>)[prop] = '#e5e7eb'
                             }
                     }
                 }

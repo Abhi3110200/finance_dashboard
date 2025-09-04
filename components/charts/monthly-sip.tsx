@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, Tooltip, CartesianGrid } from "recharts"
+import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, CartesianGrid } from "recharts"
 
 const misData = [
   { month: "Jan", value1: 60, value2: 40, value3: 20 },
@@ -17,9 +17,6 @@ const formatYAxis = (tick: number) => {
   return `${tick} CR`;
 };
 
-const formatTooltip = (value: number) => {
-  return [`${value} CR`, 'Amount'];
-};
 
 export function MonthlyMisChart() {
   return (
