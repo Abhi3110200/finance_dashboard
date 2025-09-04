@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Download } from "lucide-react"
 import { useRef, useState } from "react"
 import { toast } from "sonner"
-import { jsPDF } from "jspdf"
+
 interface DownloadReportButtonProps {
     targetId: string
     fileName?: string
@@ -113,7 +113,7 @@ export function DownloadReportButton({ targetId, fileName = "report.pdf" }: Down
         try {
             // Dynamic import to avoid SSR issues
             const html2canvas = (await import('html2canvas')).default
-            const jsPDF = (await import('jspdf')).jsPDF
+            const jsPDF = (await import('jspdf')).default
 
             toast.loading("Generating PDF...", {
                 id: "pdf-generation",
@@ -175,7 +175,6 @@ export function DownloadReportButton({ targetId, fileName = "report.pdf" }: Down
             }
 
             // Generate canvas with minimal options to avoid parsing issues
-            // @ts-ignore - scale is a valid html2canvas option but not in the type definitions
             const canvas = await html2canvas(tempContainer, {
                 scale: 1.5,
                 useCORS: true,
@@ -271,7 +270,7 @@ export function DownloadReportButton({ targetId, fileName = "report.pdf" }: Down
             `
                     clonedDoc.head.appendChild(style)
                 },
-            } as any)
+            } as Parameters<typeof html2canvas>[1])
 
             // Clean up the temporary container
             document.body.removeChild(tempContainer)
