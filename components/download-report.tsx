@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Download } from "lucide-react"
 import { useRef, useState } from "react"
 import { toast } from "sonner"
+import { jsPDF } from "jspdf"
 
 interface DownloadReportButtonProps {
     targetId: string
@@ -113,7 +114,7 @@ export function DownloadReportButton({ targetId, fileName = "report.pdf" }: Down
         try {
             // Dynamic import to avoid SSR issues
             const html2canvas = (await import('html2canvas')).default
-            const jsPDF = (await import('jspdf')).default
+            const jsPDF = (await import('jspdf')).jsPDF
 
             toast.loading("Generating PDF...", {
                 id: "pdf-generation",
